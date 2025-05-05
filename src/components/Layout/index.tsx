@@ -1,10 +1,11 @@
 import React from 'react'
-import { Form } from '../Form/index.tsx'
+import { Header } from '../Header/index.tsx'
 
-export const Layout = () => {
+export const Layout = ({children}) => {
   return (
    <div className="wrapper">
-    <Form/>
+    <Header/>
+    {children}
    </div>
   )
 }

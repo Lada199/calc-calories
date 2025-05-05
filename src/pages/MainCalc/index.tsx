@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Input } from '../UI/Input/index.tsx'
-import { Select } from '../UI/Select/index.tsx'
-import { Button } from '../UI/Button/index.tsx'
-import { CheckBox } from '../UI/Checkbox/index.tsx'
+import { Input } from '../../components/UI/Input/index.tsx'
+import { Select } from '../../components/UI/Select/index.tsx'
+import { Button } from '../../components/UI/Button/index.tsx'
+import { CheckBox } from '../../components/UI/Checkbox/index.tsx'
 
-export const Form = () => {
+export const MainCalc = () => {
     const [weight, setWeight] = useState('')
     const [height, setHeight] = useState('');
     const [age, setAge] = useState('');
