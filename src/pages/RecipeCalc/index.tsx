@@ -17,7 +17,8 @@ export const RecipeCalc = () => {
     setInput({ ...input, [field]: value });
   };
 
-  const addIngredient = () => {
+  const addIngredient = (e) => {
+    e.preventDefault()
     const {
       name,
       weight,
@@ -35,8 +36,9 @@ export const RecipeCalc = () => {
     const calories = (weightFloat * parseFloat(caloriesPer100g)) / 100;
 
     setIngredients([
-      ...ingredients,
-      { name, weight: weightFloat, protein, fat, carbs, calories }
+     
+      { name, weight: weightFloat, protein, fat, carbs, calories },
+      ...ingredients
     ]);
 
     // Reset input
@@ -66,6 +68,7 @@ export const RecipeCalc = () => {
         <div className="block__wrapper">
       <h3>Добавить ингредиент</h3>
       <form action="">
+        {/* имя */}
       <Input
         error={(!input.name || input.name < 0) && error}
         label='Название'
@@ -73,27 +76,22 @@ export const RecipeCalc = () => {
         value={input.name}
         onChange={(e) => handleChange('name', e.target.value)}
       />
+
+      <Input
+        error={(!input.weight || input.weight < 0) && error}
+        label='Грамм'
+        type='number'
+        value={input.weight}
+        onChange={(e) => handleChange('weight', e.target.value)}
+      />
       <Input
         error={(!input.caloriesPer100g || input.caloriesPer100g < 0) && error}
-        label='Грамм'
+        label='Калории на 100г'
         type='number'
         value={input.caloriesPer100g}
         onChange={(e) => handleChange('caloriesPer100g', e.target.value)}
       />
-      <Input
-        error={(!input.carbPer100g || input.carbPer100g < 0) && error}
-        label='Калории на 100г'
-        type='number'
-        value={input.carbPer100g}
-        onChange={(e) => handleChange('carbPer100g', e.target.value)}
-      />
-      <Input
-        error={(!input.proteinPer100g || input.proteinPer100g < 0) && error}
-        label='Белки на 100г'
-        type='number'
-        value={input.proteinPer100g}
-        onChange={(e) => handleChange('proteinPer100g', e.target.value)}
-      />
+      
       <Input
         error={(!input.fatPer100g || input.fatPer100g < 0) && error}
         label='Жиры на 100г'
@@ -107,6 +105,13 @@ export const RecipeCalc = () => {
         type='number'
         value={input.carbPer100g}
         onChange={(e) => handleChange('carbPer100g', e.target.value)}
+      />
+      <Input
+        error={(!input.proteinPer100g || input.proteinPer100g < 0) && error}
+        label='Белки на 100г'
+        type='number'
+        value={input.proteinPer100g}
+        onChange={(e) => handleChange('proteinPer100g', e.target.value)}
       />
       <Button onClick={addIngredient}>
       Добавить
@@ -123,12 +128,46 @@ export const RecipeCalc = () => {
       </div>
       <div className="block__wrapper">
       <h3>Ингредиенты</h3>
-      <ul>
+      {
+        ingredients.length != 0 &&  <table border="1">
+        <tr>
+            <th>Имя</th>
+            <th>вес</th>
+            <th>кал/100гр</th>
+            <th>жиры/100гр</th>
+            <th>угли/100гр</th>
+            <th>белки/100гр</th>
+        </tr>
         {ingredients.map((item, index) => (
-          <li key={index}>
-            {item.name}: {item.weight}г — {item.calories.toFixed(1)} ккал (Б: {item.protein.toFixed(1)}г, Ж: {item.fat.toFixed(1)}г, У: {item.carbs.toFixed(1)}г)
-          </li>
+          <tr key={index}>
+            <td>
+            {item.name}:
+            </td>
+            <td>
+            {item.weight}г
+            </td>
+            <td>
+            {item.calories.toFixed(1)} ккал 
+            </td>
+            <td>
+            Ж: {item.fat.toFixed(1)}г
+            </td>
+            <td>
+            У: {item.carbs.toFixed(1)}г
+            </td>
+            <td>
+            Б: {item.protein.toFixed(1)}г,
+            </td>
+           
+          </tr>
         ))}
+       
+    </table>
+      }
+
+    
+      <ul>
+       
       </ul>
 
       <h3>Итого:</h3>
